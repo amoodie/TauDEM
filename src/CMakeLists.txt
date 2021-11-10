@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.1.0)
 project(TauDEM)
 
 set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 set (shape_srcs ReadOutlets.cpp)
 set (common_srcs commonLib.cpp tiffIO.cpp)
@@ -61,6 +62,10 @@ set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} ${MPI_LINK_FLAGS}")
 # GDAL is required
 find_package(GDAL REQUIRED)
 include_directories(${GDAL_INCLUDE_DIR})
+
+# NetCDF is required for inunmap
+find_package(NetCDF REQUIRED)
+include_directories(${NETCDF_INCLUDES})
 
 add_executable (aread8 ${AREAD8})
 add_executable (areadinf ${AREADINF})
@@ -137,6 +142,6 @@ set (MY_TARGETS aread8
                 inunmap)
 
 foreach( c_target ${MY_TARGETS} )
-    target_link_libraries(${c_target} ${MPI_LIBRARIES} ${GDAL_LIBRARY})
+    target_link_libraries(${c_target} ${MPI_LIBRARIES} ${GDAL_LIBRARY} ${NETCDF_LIBRARIES})
     install(TARGETS ${c_target} DESTINATION taudem)
 endforeach( c_target ${MY_TARGETS} )
