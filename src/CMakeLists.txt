@@ -50,6 +50,7 @@ set (FLOWDIRCOND flowdirconditionmn.cpp flowdircond.cpp ${common_srcs})
 set (RETLIMFLOW RetLimFlowmn.cpp RetlimFlow.cpp ${common_srcs})
 set (SETREGION SetRegionmn.cpp SetRegion.cpp ${common_srcs})
 set (SINMAPSI SinmapSImn.cpp SinmapSI.cpp ${common_srcs})
+set (INUNMAP InunMapmn.cpp InunMap.cpp ${common_srcs})
 
 # MPI is required
 find_package(MPI REQUIRED)
@@ -96,6 +97,7 @@ add_executable (flowdircond ${FLOWDIRCOND})
 add_executable (retlimflow ${RETLIMFLOW})
 add_executable (setregion ${SETREGION})
 add_executable (sinmapsi ${SINMAPSI})
+add_executable (inunmap ${INUNMAP})
 
 set (MY_TARGETS aread8
                 areadinf
@@ -131,7 +133,8 @@ set (MY_TARGETS aread8
                 flowdircond
                 retlimflow
                 setregion
-                sinmapsi)
+                sinmapsi
+                inunmap)
 
 foreach( c_target ${MY_TARGETS} )
     target_link_libraries(${c_target} ${MPI_LIBRARIES} ${GDAL_LIBRARY})
